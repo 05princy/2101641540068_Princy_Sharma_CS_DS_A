@@ -1,0 +1,206 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node *address;
+};
+struct node*head=NULL;
+void create(){
+	struct node*first=(struct node*)malloc(sizeof(struct node));
+	first->data=10;
+	first->address=NULL;
+	if(head==NULL){
+		head=first;
+	}
+	struct node*second=(struct node*)malloc(sizeof(struct node));
+	second->data=20;
+	second->address=NULL;
+}
+void insertion_at_head(){
+	int data;
+	struct node*s=head;
+	struct node *temp;
+	temp=(struct node*)malloc(sizeof(struct node));
+	printf("Enter number to be inserted:");
+	scanf("%d",&data);
+	temp->data=data;
+	temp->address=NULL;
+	head=temp;
+	head->address=s;
+}
+void insertion_at_end(){
+	int data;
+	struct node *temp;
+	temp=(struct node*)malloc(sizeof(struct node));
+	printf("Enter number to be inserted:");
+	scanf("%d",&data);
+	temp->data=data;
+	temp->address=NULL;
+	if(head==NULL){
+		head=temp;
+	}
+	struct node*s=head;
+	while(s->address!=NULL){
+		s=s->address;
+	}
+	temp->address=s->address;
+	s->address=temp;
+}
+void insert_at_specific_position()
+{
+	int d1,d2;
+	struct node*s=head;
+	struct node*temp;
+	temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=d2;
+	temp->address=NULL;
+	while(s->address->data!=d1){
+		s=s->address;
+	}
+	temp->address=s->address;
+	s->address=temp;
+}
+void delete_at_end()
+{ struct node*s=head;
+struct node*temp;
+	while(s->address->address!=NULL){
+		s=s->address;
+	}
+	temp=s->address;
+	s->address=NULL;
+	free(temp);
+}
+void delete_at_begin(){
+	struct node*temp;
+	temp=head;
+	head=head->address;
+	free(temp);
+}
+void delete_at_specific_position(){
+	int value;
+	scanf("%d",&value);
+	struct node*prev=head;
+	struct node*s=head;
+	struct node*temp;
+	while(s->address->data!=value)
+	{
+		prev=s;
+		s=s->address;
+	}
+	temp=prev->address;
+	prev->address=temp->address;
+	free(temp);
+}
+void print_LL()
+{
+	struct node*s=head;
+	while(s!=NULL){
+		printf("%d",s->data);
+		printf("->");
+		s=s->address;
+	}
+}
+void find_nth_from_end(){
+	int c;
+	int i;
+	scanf("%d",&c);
+	struct node*main=head;
+	struct node*ref=head;
+	if(head==NULL)
+	{
+		printf("list is empty");
+	}
+	for(i=1;i<c;i++)
+	{
+		ref=ref->address;
+	}while(ref!=NULL && ref->address!=NULL){
+		ref=ref->address;
+		main=main->address;
+	}
+	printf("%d",main->data);
+}
+void find_middle(){
+	struct node *s=head;
+	int cnt=0;
+	int i;
+	int mid;
+	while(s!=NULL){
+		cnt++;
+		s=s->address;
+	}
+	s=head;
+	mid=cnt/2;
+	for(i=0;i<mid;i++){
+		s=s->address;
+	}
+	printf("%d",s->data);
+	if(cnt & 1==0){
+		mid-=1;
+	}
+    s=head;
+    while(mid>0){
+    	s=s->address;
+    	mid-=1;
+	}
+}
+int main()
+{
+	int choice;
+	while (1) {
+		printf("enter choice");
+		scanf("%d", &choice);
+		switch (choice) {
+		case 1:
+			create();
+			break;
+		case 2:
+			insert_at_head();
+			break;
+		case 3:
+			insert_at_end();
+			break;
+		case 4:
+			insert_at_specific_position();
+			break;
+		case 5:
+			delete_at_end();
+			break;
+		case 6:
+			delete_at_begin();
+			break;
+		case 7:
+			delete_at_specific_position();
+			break;
+		case 8:
+			find_middle();
+			break;
+        case 9:
+			find_nth_from_end();
+			break;
+		case 10:
+			exit(1);
+			break;
+		case 11:
+			print_LL();
+			break;
+		default:
+			printf("Invalid\n");
+		}
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
